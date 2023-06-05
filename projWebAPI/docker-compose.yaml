@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  projwebapi:
+    build: .
+    ports:
+      - 8080:80
+    environment:
+      - ConnectionString="Host=db;Port=5432;Pooling=true;Database=postgres;User Id=postgres;Password=postgres"
+    links:
+      - db
+    depends_on:
+      - db
+  db:
+    image: postgres
+    volumes:
+      - postgres:/var/lib/postgressql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+volumes:
+  postgres: {}
